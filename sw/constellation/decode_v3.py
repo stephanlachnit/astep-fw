@@ -27,7 +27,7 @@ def decode(filename, force, file_extensions, fpga_ts_length, nchips_per_layer, n
     # Settings TODO add to cli
     hh_filter_limit = 100000 # 100ks aka ~28h
     hh_matching_limt = 3e-3 # 3ms
-    strategy = MatcherStrategy.ALL
+    strategy = MatcherStrategy.CLOSEST
     ts_limit = 2 # clk cycles
     tot_limit = 0.2 # 20%
     decoder_settings = DecoderSettings(nlayers, nchips_per_layer, fpga_ts_length, 80e6, hh_filter_limit, hh_matching_limt, strategy, ts_limit, tot_limit)
@@ -44,8 +44,8 @@ def main(args):
         print('No -n and no -d arguments passed, nothing to decode')
         return
 
-    if not args.h5 and not args.root:
-        print('Specify the format of the output file (--root or --h5 or both)')
+    if not args.h5:
+        print('Specify the format of the output file (--h5)')
         return
 
     if args.name is not None and args.dir is not None:
